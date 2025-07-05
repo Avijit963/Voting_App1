@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solana Voting DApp</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 12l2 2 4-4"/>
+                    <path d="M21 12c.552 0 1-.448 1-1V5c0-.552-.448-1-1-1H3c-.552 0-1 .448-1 1v6c0 .552.448 1 1 1h18z"/>
+                    <path d="M21 19c.552 0 1-.448 1-1v-6c0-.552-.448-1-1-1H3c-.552 0-1 .448-1 1v6c0 .552.448 1 1 1h18z"/>
+                </svg>
+                <h1>Solana Voting DApp</h1>
+            </div>
+            <button id="connectWallet" class="wallet-btn">Connect Wallet</button>
+        </header>
+
+        <!-- Wallet Status -->
+        <div id="walletStatus" class="wallet-status hidden">
+            <div class="status-card">
+                <h3>✅ Wallet Connected</h3>
+                <p id="walletAddress">Address: Not connected</p>
+                <p id="walletBalance">Balance: 0 SOL</p>
+            </div>
+        </div>
+
+        <!-- Debug Info -->
+        <div id="debugInfo" class="debug-info">
+            <h4>Debug Information:</h4>
+            <p id="phantomStatus">Phantom Wallet: Checking...</p>
+            <p id="solanaStatus">Solana Web3: Checking...</p>
+            <p id="connectionStatus">Network: Connecting...</p>
+        </div>
+
+        <!-- Voting Section -->
+        <main class="main-content">
+            <div class="voting-header">
+                <h2>Cast Your Vote</h2>
+                <p>Choose your preferred option for the next project development focus</p>
+            </div>
+
+            <!-- Voting Results -->
+            <div id="votingResults" class="results-section">
+                <h3>Current Results</h3>
+                <div class="results-grid">
+                    <div class="result-item">
+                        <div class="result-header">
+                            <span>DeFi Protocol</span>
+                            <span id="optionACount">0 votes</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div id="optionAProgress" class="progress-fill"></div>
+                        </div>
+                        <span id="optionAPercent" class="percentage">0%</span>
+                    </div>
+
+                    <div class="result-item">
+                        <div class="result-header">
+                            <span>NFT Marketplace</span>
+                            <span id="optionBCount">0 votes</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div id="optionBProgress" class="progress-fill"></div>
+                        </div>
+                        <span id="optionBPercent" class="percentage">0%</span>
+                    </div>
+
+                    <div class="result-item">
+                        <div class="result-header">
+                            <span>Gaming Platform</span>
+                            <span id="optionCCount">0 votes</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div id="optionCProgress" class="progress-fill"></div>
+                        </div>
+                        <span id="optionCPercent" class="percentage">0%</span>
+                    </div>
+
+                    <div class="result-item">
+                        <div class="result-header">
+                            <span>Social Media DApp</span>
+                            <span id="optionDCount">0 votes</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div id="optionDProgress" class="progress-fill"></div>
+                        </div>
+                        <span id="optionDPercent" class="percentage">0%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Voting Options -->
+            <div class="voting-options">
+                <div class="option-card" data-option="0">
+                    <h3>DeFi Protocol</h3>
+                    <p>Build decentralized finance solutions with lending, borrowing, and yield farming capabilities.</p>
+                    <button class="vote-btn" data-option="0" disabled>Vote for DeFi</button>
+                </div>
+
+                <div class="option-card" data-option="1">
+                    <h3>NFT Marketplace</h3>
+                    <p>Create a platform for trading, minting, and showcasing non-fungible tokens.</p>
+                    <button class="vote-btn" data-option="1" disabled>Vote for NFTs</button>
+                </div>
+
+                <div class="option-card" data-option="2">
+                    <h3>Gaming Platform</h3>
+                    <p>Develop blockchain-based games with play-to-earn mechanics and NFT integration.</p>
+                    <button class="vote-btn" data-option="2" disabled>Vote for Gaming</button>
+                </div>
+
+                <div class="option-card" data-option="3">
+                    <h3>Social Media DApp</h3>
+                    <p>Build a decentralized social network with content ownership and token rewards.</p>
+                    <button class="vote-btn" data-option="3" disabled>Vote for Social</button>
+                </div>
+            </div>
+        </main>
+
+        <!-- Instructions -->
+        <section class="instructions">
+            <h3>How to Vote</h3>
+            <ol>
+                <li>Install <a href="https://phantom.app/" target="_blank">Phantom Wallet</a> browser extension</li>
+                <li>Switch your wallet to <strong>Devnet</strong> in settings</li>
+                <li>Get free Devnet SOL from <a href="https://faucet.solana.com/" target="_blank">Solana Faucet</a></li>
+                <li>Click "Connect Wallet" above</li>
+                <li>Choose your preferred option and click vote</li>
+                <li>Approve the transaction in your wallet</li>
+            </ol>
+            <p class="note"><strong>Note:</strong> This app uses Solana Devnet for testing. Make sure your wallet is set to Devnet!</p>
+        </section>
+
+        <!-- Loading Modal -->
+        <div id="loadingModal" class="modal hidden">
+            <div class="modal-content">
+                <div class="spinner"></div>
+                <p id="loadingText">Processing your vote...</p>
+            </div>
+        </div>
+
+        <!-- Toast Notifications -->
+        <div id="toastContainer" class="toast-container"></div>
+    </div>
+
+    <!-- Load Solana Web3.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@solana/web3.js@1.87.6/lib/index.iife.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
